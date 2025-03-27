@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentHub - Everything for Students</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif; /* Fallback to default font */
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #1a1a1a;
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            color: #ffd700;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar .nav-links li {
+            margin-left: 20px;
+        }
+
+        .navbar .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Common Section Styling */
+        section {
+            padding: 60px 20px;
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #1a1a1a;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .card .action-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: #ffd700;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .card .action-btn:hover {
+            background: #fff;
+        }
+
+        /* Specific Section Backgrounds */
+        #home { background: linear-gradient(135deg, #1a1a1a, #4a4a4a); }
+        #study-hub { background: linear-gradient(135deg, #ffffff, #e6e6fa); }
+        #tools { background: linear-gradient(135deg, #f0f8ff, #b0c4de); }
+        #career { background: linear-gradient(135deg, #fffacd, #f0e68c); }
+        #chill { background: linear-gradient(135deg, #ffe4e1, #ffb6c1); }
+        #community { background: linear-gradient(135deg, #e0ffff, #afeeee); }
+        #deals { background: linear-gradient(135deg, #f0fff0, #98fb98); }
+
+        /* Quiz Container */
+        #quiz-container {
+            display: none;
+            padding: 20px;
+            max-width: 500px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #quiz-container h3 {
+            margin-bottom: 15px;
+        }
+
+        #quiz-container button {
+            margin: 5px;
+            padding: 8px 15px;
+            background: #ffd700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: #1a1a1a;
+                padding: 15px 0;
+            }
+            .navbar .nav-links.active { display: flex; }
+            .navbar .nav-links li { margin: 10px 0; }
+            section h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">ATC CLASSES</div>
+        <ul class="nav-links">
+            <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
+            <li><a href="#study-hub" onclick="scrollToSection('study-hub')">Study Hub</a></li>
+            <li><a href="#tools" onclick="scrollToSection('tools')">Tools</a></li>
+            <li><a href="#career" onclick="scrollToSection('career')">Career</a></li>
+            <li><a href="#chill" onclick="scrollToSection('chill')">Chill Zone</a></li>
+            <li><a href="#community" onclick="scrollToSection('community')">Community</a></li>
+            <li><a href="#deals" onclick="scrollToSection('deals')">Deals</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <h2>Welcome to ATC CLASSES</h2>
+        <div class="content">
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/student-male.png" alt="Student">
+                <h3>All-in-One</h3>
+                <p>Your one-stop platform for everything a student needs!</p>
+                <button class="action-btn" onclick="scrollToSection('study-hub')">Explore Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Study Hub Section -->
+    <section id="study-hub">
+        <h2>Study Hub</h2>
+        <div class="content">
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/note.png" alt="Notes">
+                <h3>Notes</h3>
+                <p>Free notes from Physics Wallah.</p>
+                <button class="action-btn" onclick="window.open('https://www.pw.live/study/notes', '_blank')">Get Notes</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/youtube-play.png" alt="Videos">
+                <h3>Video Tutorials</h3>
+                <p>Top YouTube channels for learning.</p>
+                <button class="action-btn" onclick="showVideoLinks()">Watch Videos</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/checklist.png" alt="Quizzes">
+                <h3>Quizzes</h3>
+                <p>Test your knowledge with fun quizzes.</p>
+                <button class="action-btn" onclick="generateQuiz()">Take Quiz</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools">
+        <h2>Tools</h2>
+        <div class="content">
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/stopwatch.png" alt="Timer">
+                <h3>Pomodoro Timer</h3>
+                <p>Boost productivity with a timer.</p>
+                <button class="action-btn" onclick="alert('Pomodoro: 25 min work, 5 min break')">Start Timer</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/calculator.png" alt="Calculator">
+                <h3>Calculator</h3>
+                <p>Quick calculations on the go.</p>
+                <button class="action-btn" onclick="window.open('https://www.google.com/search?q=calculator', '_blank')">Open Calculator</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/edit.png" alt="Grammar">
+                <h3>Grammar Checker</h3>
+                <p>Improve your writing instantly.</p>
+                <button class="action-btn" onclick="window.open('https://www.grammarly.com', '_blank')">Check Grammar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career">
+        <h2>Career</h2>
+        <div class="content">
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/resume.png" alt="Resume">
+                <h3>Resume Builder</h3>
+                <p>Create a professional resume.</p>
+                <button class="action-btn" onclick="window.open('https://www.canva.com/resumes/templates/', '_blank')">Build Resume</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/job.png" alt="Jobs">
+                <h3>Job Listings</h3>
+                <p>Find internships and jobs.</p>
+                <button class="action-btn" onclick="window.open('https://www.linkedin.com/jobs/', '_blank')">Browse Jobs</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/tips.png" alt="Tips">
+                <h3>Career Tips</h3>
+                <p>Get expert career advice.</p>
+                <button class="action-btn" onclick="window.open('https://www.thebalancecareers.com/', '_blank')">Read Tips</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chill Zone Section -->
+    <section id="chill">
+        <h2>Chill Zone</h2>
+        <div class="content">
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/controller.png" alt="Games">
+                <h3>Games</h3>
+                <p>Play fun online games.</p>
+                <button class="action-btn" onclick="window.open('https://www.coolmathgames.com/', '_blank')">Play Games</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/music.png" alt="Music">
+                <h3>Music</h3>
+                <p>Relax with playlists.</p>
+                <button class="action-btn" onclick="window.open('https://open.spotify.com/genre/chill', '_blank')">Listen Now</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/quote.png" alt="Quotes">
+                <h3>Quotes</h3>
+                <p>Get inspired daily.</p>
+                <button class="action-btn" onclick="alert('“The best way to predict the future is to create it.” - Peter Drucker')">See Quote</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community">
+        <h2>Community</h2>
+        <div class="content">
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/chat.png" alt="Forum">
+                <h3>Forum</h3>
+                <p>Join discussions with peers.</p>
+                <button class="action-btn" onclick="window.open('https://www.reddit.com/r/students/', '_blank')">Join Forum</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/question-mark.png" alt="Doubts">
+                <h3>Ask Doubts</h3>
+                <p>Get help from experts.</p>
+                <button class="action-btn" onclick="window.open('https://www.chegg.com/study', '_blank')">Ask Now</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/group.png" alt="Groups">
+                <h3>Study Groups</h3>
+                <p>Connect with study buddies.</p>
+                <button class="action-btn" onclick="window.open('https://discord.com/invite/studytogether', '_blank')">Join Groups</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Section -->
+    <section id="deals">
+        <h2>Deals</h2>
+        <div class="content">
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/discount.png" alt="Discounts">
+                <h3>Student Discounts</h3>
+                <p>Save on tech & more.</p>
+                <button class="action-btn" onclick="window.open('https://www.studentbeans.com/', '_blank')">Get Discounts</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/shopping-bag.png" alt="Shopping">
+                <h3>Shopping Deals</h3>
+                <p>Best offers for students.</p>
+                <button class="action-btn" onclick="window.open('https://www.amazon.com/deals', '_blank')">Shop Now</button>
+            </div>
+            <div class="card">
+                <img src="https://img.icons8.com/plasticine/60/money.png" alt="Budget">
+                <h3>Budget Tips</h3>
+                <p>Manage your money smartly.</p>
+                <button class="action-btn" onclick="window.open('https://www.mint.com/budgeting-tips', '_blank')">Learn Tips</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Container -->
+    <div id="quiz-container">
+        <h3 id="quiz-question"></h3>
+        <div id="quiz-options"></div>
+        <button onclick="generateQuiz()">Next Quiz</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 StudentHub. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle Hamburger Menu
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Smooth Scroll to Section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show Video Tutorial Links
+        function showVideoLinks() {
+            const videoLinks = [
+                { name: "Khan Academy", url: "https://www.youtube.com/@khanacademy" },
+                { name: "Crash Course", url: "https://www.youtube.com/@crashcourse" },
+                { name: "Physics Wallah", url: "https://www.youtube.com/@PhysicsWallah" }
+            ];
+            let links = "Top Video Tutorials:\n";
+            videoLinks.forEach(link => links += `${link.name}: ${link.url}\n`);
+            alert(links);
+        }
+
+        // Auto-Generate Quiz
+        function generateQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            const quizQuestion = document.getElementById('quiz-question');
+            const quizOptions = document.getElementById('quiz-options');
+
+            quizContainer.style.display = 'block';
+            quizOptions.innerHTML = '';
+
+            const quizzes = [
+                { question: "What is 2 + 2?", options: ["3", "4", "5"], answer: "4" },
+                { question: "Capital of India?", options: ["Delhi", "Mumbai", "Kolkata"], answer: "Delhi" },
+                { question: "Red Planet?", options: ["Mars", "Venus", "Jupiter"], answer: "Mars" }
+            ];
+
+            const randomQuiz = quizzes[Math.floor(Math.random() * quizzes.length)];
+            quizQuestion.textContent = randomQuiz.question;
+
+            randomQuiz.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.onclick = () => {
+                    alert(option === randomQuiz.answer ? "Correct!" : `Wrong! Answer: ${randomQuiz.answer}`);
+                };
+                quizOptions.appendChild(button);
+            });
+
+            scrollToSection('quiz-container');
+        }
+    </script>
+</body>
+</html>
